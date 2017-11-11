@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Trends KnockOut</title>
+    <title>Trends War</title>
+
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-dialog.min.css" rel="stylesheet">
@@ -19,11 +21,34 @@
 
         <div id="beginSection">
             <h1 id="welcome"></h1>
-            <button class="btn btn-warning btn-lg" value="">Fight!</button>
+            <button class="btn btn-warning btn-lg" id="fightBtn">Fight!</button>
+        </div>
+
+        <div id="gameLoaderSection">
+            <img class="spinner" src="img/giphy.gif" alt="Spinner">
         </div>
 
         <div id="gameSection">
-            GAME
+            <div class="row">
+                <h2>Which one is most popular in 2017 Worlwide?</h2>
+            </div>
+            <div class="row">
+                <div id="myPlayer" class="col-md-4 little-down">
+                    <img src="img/p1left.gif" alt="myplayer">
+                </div>
+
+                <div id="choices" class="col-md-4">
+
+                </div>
+
+                <div id="opponent" class="col-md-4 little-down">
+                    <img src="img/p2right.gif" alt="opponent">
+                </div>
+            </div>
+
+            <div class="row">
+                <div id="timer"></div>
+            </div>
         </div>
 
     </div>
