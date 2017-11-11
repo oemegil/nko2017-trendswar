@@ -1,17 +1,16 @@
 'use strict';
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema;
 
 
-var WordSchema = new Schema({
-    name: {
+var TrendWordWordSchema = new Schema({
+    word: {
         type: String,
-        required: 'Enter name'
+        required: 'Enter word'
     },
     created_date: {
         type: Date,
         default: Date.now
     }
 });
-
-module.exports = mongoose.model('Words', WordSchema);
+module.exports = mongoose.model('TrendWords', TrendWordWordSchema);

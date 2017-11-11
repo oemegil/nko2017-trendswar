@@ -1,19 +1,22 @@
 'use strict';
 var mongoose = require('mongoose'),
-    Words = mongoose.model('Words');
+    TrendWords = mongoose.model('TrendWords'),
+    limitrecords = 5;
+
 exports.getRandomWords = function (req, res) {
-    Words.find({}, function (err, task) {
-        if (err)
-            res.send(err);
-        res.json(task);
-    });
-    //res.json(['nodejs', 'angular', 'vscode', 'expressjs', 'mongodb', 'knockout', 'html5', 'css3', 'es6', 'react']);
+    TrendWords
+        .aggregate().sample(limitrecords)
+        .exec(function (err, result) {
+            if (err)
+                res.send(err);
+            res.json(result);
+        });
 }
 exports.postWord = function (req, res) {
-    var newWord = new Words(req.body);
-    newWord.save(function (err, task) {
+    var newWord = new TrendWords(req.body);
+    newWord.save(function (err, result) {
         if (err)
             res.send(err);
-        res.json(task);
+        res.json(result);
     });
 }
