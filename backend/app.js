@@ -2,7 +2,12 @@ var mongoose = require('mongoose'),
     bodyParser = require('body-parser'),
     express = require('express'),
     app = express(),
-    port = process.env.PORT || 3000;
+    Word = require('./models/word.model'),
+    port = process.env.PORT || 3000,
+    mongoUrl = "mongodb://root:root_1@ds255715.mlab.com:55715/heroku_gknnkhkt";
+    
+mongoose.Promise = global.Promise;
+mongoose.connect(mongoUrl);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
