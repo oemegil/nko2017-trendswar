@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 
-var TrendWordWordSchema = new Schema({
+var TrendWordSchema = new Schema({
     word: {
         type: String,
         required: 'Enter word'
@@ -13,4 +13,4 @@ var TrendWordWordSchema = new Schema({
         default: Date.now
     }
 });
-module.exports = mongoose.model('TrendWords', TrendWordWordSchema);
+module.exports = mongoose.model('TrendWords', TrendWordSchema);
