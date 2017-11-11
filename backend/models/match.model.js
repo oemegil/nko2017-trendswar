@@ -4,6 +4,11 @@ var mongoose = require('mongoose'),
     ObjectId = Schema.ObjectId;
 
 var MatchSchema = new Schema({
-    users: [{ type: ObjectId, ref: 'Users' }]
+    users: [{ type: ObjectId, ref: 'Users' }],
+    words: [{ type: String }],
+    created_date: {
+        type: Date,
+        default: Date.now
+    }
 });
 module.exports = mongoose.model('Matches', MatchSchema);
