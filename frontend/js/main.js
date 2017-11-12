@@ -1,3 +1,5 @@
+var globalUrl = "https://nodeknockoutogu.herokuapp.com/";
+
 $('#beginSection,#gameSection,#gameLoaderSection').hide();
 
 var userStr = window.localStorage.getItem("trendsuser");
@@ -18,7 +20,7 @@ function dosmth(id) {
 
 function renderLeaderboard() {
 
-    $.get("https://nodeknockoutogu.herokuapp.com/users/getLeaderboard", function (data) {
+    $.get(globalUrl + "users/getLeaderboard", function (data) {
 
         $leaders = $("#leaders");
         $leaders.html(null);
@@ -45,7 +47,7 @@ function call4Robot(){
 
 function getChoices() {
 
-    $.get("https://nodeknockoutogu.herokuapp.com/words", function (data) {
+    $.get(globalUrl + "words", function (data) {
 
         $choices = $("#choices");
         $choices.html(null);
@@ -74,7 +76,7 @@ $('#fightBtn').click(function () {
     $('#beginSection').hide();
     $('#gameLoaderSection').show();
 
-    $.post("https://nodeknockoutogu.herokuapp.com/matches", {"userId": userObj._id}, function (data) {
+    $.post(globalUrl + "matches", {"userId": userObj._id}, function (data) {
 
         currentMatch = data;
 
@@ -100,7 +102,7 @@ if (!userNick) {
 
                 if (userNick && selectedImage) {
 
-                    $.post("https://nodeknockoutogu.herokuapp.com/users", {
+                    $.post(globalUrl + "users", {
                         "name": userNick,
                         "avatar": selectedImage
                     }, function (data) {
