@@ -18,14 +18,14 @@ function dosmth(id) {
 
 function renderLeaderboard() {
 
-    $.get("http://nodeknockoutogu.herokuapp.com/users/getLeaderboard", function (data) {
-
+    $.get("https://nodeknockoutogu.herokuapp.com/users/getLeaderboard", function (data) {
 
         $leaders = $("#leaders");
+        $leaders.html(null);
 
         $.each(data, function (index, value) {
 
-            var $tr = $('<tr><td>' + value.name + '</td><td>' + value.point + '</td></tr>');
+            var $tr = $('<tr><td>' + (index + 1) + '</td><td>' + value.name + '</td><td>' + value.point + '</td></tr>');
             $leaders.append($tr);
         });
     });
@@ -33,31 +33,38 @@ function renderLeaderboard() {
 
 
 function authOk() {
-
     $('#welcome').text('Welcome ' + userNick);
     $('#beginSection').show();
     renderLeaderboard();
+}
+
+function call4Robot(){
+
 
 }
 
 function getChoices() {
 
-    var quest = ["node", "react", "vue", "angular", "python", "javascript", "java", "csharp", "mongo", "express"];
+    $.get("https://nodeknockoutogu.herokuapp.com/words", function (data) {
 
-    for (i = 0; i < 10; i++) {
+        $choices = $("#choices");
+        $choices.html(null);
 
-        var $buttons = $('<input/>').attr({
-                type: 'button',
-                id: 'btn' + i,
-                name: 'btn' + i,
-                value: quest[i],
-                onclick: 'dosmth(' + 'btn' + i + ');'
-            })
-            .addClass('btn').addClass('btn-default').addClass('btn-sm').addClass('little-space');
-        var $div = $('<div></div>').append($buttons);
-        $("#choices").append($div);
-    }
+        $.each(data, function (index, value) {
 
+            var $buttons = $('<input/>').attr({
+                    type: 'button',
+                    id: 'btn' + i,
+                    name: 'btn' + i,
+                    value: quest[i],
+                    onclick: 'dosmth(' + 'btn' + i + ');'
+                })
+                .addClass('btn').addClass('btn-default').addClass('btn-sm').addClass('little-space');
+            var $div = $('<div></div>').append($buttons);
+
+            $choices.append($div);
+        });
+    });
 }
 
 
