@@ -46,7 +46,13 @@ function giveAnswer(id, robot) {
 
                 $('#choices').html(null);
 
-                if (true)//winner
+                var winnerIsMe = true;
+
+                if (response.answers[0].point < response.answers[1]) {
+                    winnerIsMe = false;
+                }
+
+                if (winnerIsMe)//winner
                 {
                     $("#myPlayer").attr("src", 'img/won.gif');
                     $("#opponent").attr("src", 'img/knockout.gif');
@@ -54,7 +60,6 @@ function giveAnswer(id, robot) {
                     $("#myPlayer").attr("src", 'img/knockout.gif');
                     $("#opponent").attr("src", 'img/won.gif');
                 }
-
                 //celebrate
                 setTimeout(function () {
 
