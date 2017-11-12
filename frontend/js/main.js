@@ -20,7 +20,7 @@ function dosmth(id) {
 }
 
 
-function listenMatch (msg) {
+function listenMatch(msg) {
 
     debugger;
 
@@ -93,7 +93,7 @@ $('#fightBtn').click(function () {
 
         currentMatch = data;
 
-        var socket = io(data._id);
+        var socket = io(globalUrl + data._id);
         socket.on('matchResult', listenMatch);
 
 
