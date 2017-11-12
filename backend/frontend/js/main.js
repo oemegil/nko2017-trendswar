@@ -49,7 +49,7 @@ function giveAnswer(id, robot) {
 
                     var winnerIsMe = true;
 
-                    if (response.answers[0].point < response.answers[1]) {
+                    if (response.answers[0].point < response.answers[1].point) {
                         winnerIsMe = false;
                     }
 
@@ -178,12 +178,10 @@ $('#fightBtn').click(function () {
     $.post(globalUrl + "matches", {"userId": userObj._id}, function (data) {
 
         currentMatch = data;
-        //var socket = io(globalUrl + data._id);
-        //socket.on('matchResult', listenMatch);
+
+        call4Robot();
 
     }, "json");
-
-    setTimeout(call4Robot, 5000);
 
 });
 
