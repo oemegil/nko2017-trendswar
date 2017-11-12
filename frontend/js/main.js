@@ -1,5 +1,5 @@
-//var globalUrl = "https://nodeknockoutogu.herokuapp.com/";
-var globalUrl = "http://localhost:8080/";
+var globalUrl = "https://nodeknockoutogu.herokuapp.com/";
+//var globalUrl = "http://localhost:8080/";
 
 $('#beginSection,#gameSection,#gameLoaderSection').hide();
 
@@ -17,6 +17,13 @@ function dosmth(id) {
     $(id).removeClass('btn-default').addClass('btn-primary');
 
     //winner
+}
+
+
+function listenMatch (msg) {
+
+    debugger;
+
 }
 
 function renderLeaderboard() {
@@ -41,8 +48,13 @@ function authOk() {
     renderLeaderboard();
 }
 
-function call4Robot(){
+function call4Robot() {
 
+    $.post(globalUrl + "matches", {"userId": "5a08b73b734d1d68d42e2edf"}, function (data) {
+
+        currentMatch = data;
+
+    }, "json");
 
 }
 
@@ -81,7 +93,14 @@ $('#fightBtn').click(function () {
 
         currentMatch = data;
 
+        var socket = io(data._id);
+        socket.on('matchResult', listenMatch);
+
+
     }, "json");
+
+
+    //setTimeout(call4Robot, 5000);
 
 });
 
