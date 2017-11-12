@@ -1,5 +1,5 @@
-var globalUrl = "https://nodeknockoutogu.herokuapp.com/";
-//var globalUrl = "http://localhost:8080/";
+//var globalUrl = "https://nodeknockoutogu.herokuapp.com/";
+var globalUrl = "http://localhost:8080/";
 
 $('#beginSection,#gameSection,#gameLoaderSection').hide();
 
