@@ -1,5 +1,5 @@
+//var globalUrl = "https://trendswar.herokuapp.com/";
 var globalUrl = "https://trendswar.herokuapp.com/";
-//var globalUrl = "http://localhost:8080/";
 
 var robotId = "5a08b73b734d1d68d42e2edf";
 
@@ -45,13 +45,8 @@ function giveAnswer(id, robot) {
             success: function (response) {
 
                 $('#choices').html(null);
-                var winnerIsMe = true;
 
-                if (response.answers[0].point < response.answers[1]) {
-                    winnerIsMe = false;
-                }
-
-                if (winnerIsMe)//winner
+                if (true)//winner
                 {
                     $("#myPlayer").attr("src", 'img/won.gif');
                     $("#opponent").attr("src", 'img/knockout.gif');
@@ -89,12 +84,12 @@ function showMatchScreen(robot) {
     $.each(currentMatch.words, function (index, value) {
 
         var $buttons = $('<input/>').attr({
-                type: 'button',
-                id: 'btn' + index,
-                name: 'btn' + index,
-                value: value,
-                onclick: 'giveAnswer(' + 'btn' + index + ',' + robot + ');'
-            })
+            type: 'button',
+            id: 'btn' + index,
+            name: 'btn' + index,
+            value: value,
+            onclick: 'giveAnswer(' + 'btn' + index + ',' + robot + ');'
+        })
             .addClass('btn').addClass('btn-default').addClass('btn-sm').addClass('little-space');
         var $div = $('<div></div>').append($buttons);
 
@@ -132,7 +127,7 @@ function call4Robot() {
 
     if (currentMatch.users.length == 1) {
 
-        $.post(globalUrl + "matches", {"userId": robotId}, function (data) {
+        $.post(globalUrl + "matches", { "userId": robotId }, function (data) {
 
             currentMatch = data;
             showMatchScreen(true);
@@ -151,12 +146,12 @@ function getChoices() {
         $.each(data, function (index, value) {
 
             var $buttons = $('<input/>').attr({
-                    type: 'button',
-                    id: 'btn' + i,
-                    name: 'btn' + i,
-                    value: quest[i],
-                    onclick: 'dosmth(' + 'btn' + i + ');'
-                })
+                type: 'button',
+                id: 'btn' + i,
+                name: 'btn' + i,
+                value: quest[i],
+                onclick: 'dosmth(' + 'btn' + i + ');'
+            })
                 .addClass('btn').addClass('btn-default').addClass('btn-sm').addClass('little-space');
             var $div = $('<div></div>').append($buttons);
 
@@ -172,7 +167,7 @@ $('#fightBtn').click(function () {
     $('#beginSection').hide();
     $('#gameLoaderSection').show();
 
-    $.post(globalUrl + "matches", {"userId": userObj._id}, function (data) {
+    $.post(globalUrl + "matches", { "userId": userObj._id }, function (data) {
 
         currentMatch = data;
         //var socket = io(globalUrl + data._id);
