@@ -4,12 +4,13 @@ var userNick = window.localStorage.getItem("nickname");
 
 function dosmth(id) {
 
-   $(id).removeClass('btn-default').addClass('btn-primary');
+    $(id).removeClass('btn-default').addClass('btn-primary');
 
-   //winner
+    //winner
 
 
 }
+
 
 function getChoices() {
 
@@ -59,17 +60,35 @@ if (!userNick) {
     var dialog = BootstrapDialog.show({
         title: 'Create Profile',
         closable: false,
-        message: $('<input class="form-control" type="text" id="nickname" placeholder="Enter your nickname"></input>'),
+        message: $('<form><h3>Write your nickname</h3><input required class="form-control" type="text" id="nickname" placeholder="Nickname"/><h3>Choose your character</h3><div style="margin-top:24px;"><label><input type="radio" name="player"/>  <img src="img/p1left.gif"></label><label><input type="radio" name="player"/><img src="img/p2left.gif"></label></div></form>'),
         buttons: [{
             label: 'Submit',
             cssClass: 'btn-primary',
             hotkey: 13,
             action: function () {
+
                 userNick = $('#nickname').val();
-                window.localStorage.setItem("nickname", userNick);
-                $('#welcome').text('Welcome ' + userNick);
-                $('#beginSection').show();
-                dialog.close();
+
+                if (userNick) {
+                    $.ajax({
+                        type: "POST",
+                        url: "https://nodeknockoutogu.herokuapp.com/users",
+                        data: {"name": userNick},
+                        success: function (data) {
+
+                            debugger;
+
+                            window.localStorage.setItem("nickname", userNick);
+                            $('#welcome').text('Welcome ' + userNick);
+                            $('#beginSection').show();
+                            dialog.close();
+
+                        },
+                        dataType: 'application/json'
+                    });
+                } else {
+                    alert('Enter nickname');
+                }
             }
         }]
     });
