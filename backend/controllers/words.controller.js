@@ -11,7 +11,8 @@ exports.getRandomWords = function (req, res) {
                 res.send(err);
             res.json(result);
         });
-}
+};
+
 exports.postWord = function (req, res) {
     var newWord = new TrendWords(req.body);
     newWord.save(function (err, result) {
@@ -19,4 +20,4 @@ exports.postWord = function (req, res) {
             res.send(err);
         res.json(result);
     });
-}
+};
