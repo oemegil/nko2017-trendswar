@@ -5,7 +5,9 @@ var mongoose = require('mongoose'),
     Word = require('./models/word.model'),
     User = require('./models/user.model'),
     Match = require('./models/match.model'),
-    port = process.env.PORT || 3000,
+    port = process.env.PORT || 8080,
+    server = require('http').createServer(app),
+    io = require('socket.io')(server),
     mongoUrl = "mongodb://root:root_1@ds255715.mlab.com:55715/heroku_gknnkhkt";
 
 mongoose.Promise = global.Promise;
