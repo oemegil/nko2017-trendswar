@@ -6,6 +6,9 @@ var mongoose = require('mongoose'),
 
 exports.findOpponent = function (req, res) {
     Matchs.findOne({ $where: "this.users.length < 2" }, function (err, result) {
+        // global._io.of('/' + req.body.matchId).on('connection', function (socket) {
+        //     console.log('someone connected');
+        // });
         if (err)
             res.send(err);
         if (!result) {
@@ -27,7 +30,8 @@ exports.findOpponent = function (req, res) {
                         if (err)
                             res.send(err);
                         res.json(result2);
-                        global._io.of('/' + req.body.matchId).emit('matchResult', result2);
+                        //global._io.of('/' + req.body.matchId).emit('matchResult', result2);
+                        global._io.sockets.in(req.body.matchId).emit('message', result2);
                     });
                 });
         }
@@ -36,7 +40,7 @@ exports.findOpponent = function (req, res) {
                 if (err)
                     res.send(err);
                 res.json(result2);
-                global._io.of('/' + req.body.matchId).emit('matchResult', result2);
+                global._io.sockets.in(req.body.matchId).emit('message', result2);
             });
     });
 }
