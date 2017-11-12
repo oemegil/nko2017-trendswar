@@ -6,6 +6,7 @@ var mongoose = require('mongoose'),
 var MatchSchema = new Schema({
     users: [{ type: ObjectId, ref: 'Users' }],
     words: [{ type: String }],
+    answers: [{ answer: String, user: { type: ObjectId, ref: 'Users' }}],
     created_date: {
         type: Date,
         default: Date.now
