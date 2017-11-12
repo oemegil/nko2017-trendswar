@@ -13,6 +13,9 @@ exports.findOpponent = function (req, res) {
         //TODO: prevent push same user
         result.users.push(req.body.userId);
         if (!result.isNew) {
+            global._io.of('/' + req.body.matchId).on('connection', function (socket) {
+                console.log('someone connected');
+            });
             TrendWords
                 .aggregate().sample(10)
                 .exec(function (err, words) {
@@ -33,6 +36,7 @@ exports.findOpponent = function (req, res) {
                 if (err)
                     res.send(err);
                 res.json(result2);
+                global._io.of('/' + req.body.matchId).emit('matchResult',result2);
             });
     });
 }
@@ -44,11 +48,12 @@ exports.answer = function (req, res) {
     // });
     Matchs.findById(req.body.matchId, function (err, result) {
         result.answers.push({ answer: req.body.answer, user: req.body.userId });
+
         result.save(function (err, result2) {
             if (err)
                 res.send(err);
             res.json(result2);
-            //nsp.emit(result2);
+            global._io.of('/' + req.body.matchId).emit('matchResult',result2);
         });
     });
 }

@@ -9,7 +9,7 @@ var mongoose = require('mongoose'),
     server = require('http').createServer(app),
     io = require('socket.io')(server),
     mongoUrl = "mongodb://root:root_1@ds255715.mlab.com:55715/heroku_gknnkhkt";
-
+    global._io = io;
 mongoose.Promise = global.Promise;
 mongoose.connect(mongoUrl);
 
