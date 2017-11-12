@@ -36,11 +36,19 @@ exports.findOpponent = function (req, res) {
             });
     });
 }
-exports.postUser = function (req, res) {
-    var newUser = new Users(req.body);
-    newUser.save(function (err, result) {
-        if (err)
-            res.send(err);
-        res.json(result);
+exports.answer = function (req, res) {
+    //TODO: Implement socket.io
+    // var nsp = io.of('/' + req.body.matchId);
+    // nsp.on('connection', function (socket) {
+    //     console.log(req.body.userId + ' connected');
+    // });
+    Matchs.findById(req.body.matchId, function (err, result) {
+        result.answers.push({ answer: req.body.answer, user: req.body.userId });
+        result.save(function (err, result2) {
+            if (err)
+                res.send(err);
+            res.json(result2);
+            //nsp.emit(result2);
+        });
     });
 }
