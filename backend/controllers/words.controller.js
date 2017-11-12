@@ -1,7 +1,7 @@
 'use strict';
 var mongoose = require('mongoose'),
     TrendWords = mongoose.model('TrendWords'),
-    limitrecords = 5;
+    limitrecords = 10;
 
 exports.getRandomWords = function (req, res) {
     TrendWords
