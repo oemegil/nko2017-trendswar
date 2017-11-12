@@ -8,7 +8,8 @@ exports.getUsers = function (req, res) {
             res.send(err);
         res.json(result);
     });
-}
+};
+
 exports.postUser = function (req, res) {
     var newUser = new Users(req.body);
     newUser.save(function (err, result) {
@@ -16,4 +17,4 @@ exports.postUser = function (req, res) {
             res.send(err);
         res.json(result);
     });
-}
+};

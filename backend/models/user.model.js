@@ -8,6 +8,10 @@ var UserSchema = new Schema({
         type: String,
         required: 'Enter name'
     },
+    avatar: {
+        type: String,
+        required: 'Select avatar'
+    },
     email: {
         type: String,
         unique: true

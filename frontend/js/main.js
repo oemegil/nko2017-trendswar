@@ -1,14 +1,19 @@
 $('#beginSection,#gameSection,#gameLoaderSection').hide();
-var userNick = window.localStorage.getItem("nickname");
 
+var userStr = window.localStorage.getItem("trendsuser");
+var userObj = JSON.parse(userStr);
+var userNick;
+var currentMatch;
+
+if(userObj) {
+    userNick = userObj[name];
+}
 
 function dosmth(id) {
 
     $(id).removeClass('btn-default').addClass('btn-primary');
 
     //winner
-
-
 }
 
 
@@ -41,16 +46,11 @@ $('#fightBtn').click(function () {
     $('#beginSection').hide();
     $('#gameLoaderSection').show();
 
-    setTimeout(function () {
+    $.post( "https://nodeknockoutogu.herokuapp.com/matches",  {"userId": userObj._id} , function( data ) {
 
-        $('#gameLoaderSection').hide();
-        $('#gameSection').show();
+        currentMatch = data;
 
-        //get choices
-        getChoices();
-
-
-    }, 2000);
+    }, "json");
 
 });
 
@@ -70,22 +70,17 @@ if (!userNick) {
                 userNick = $('#nickname').val();
 
                 if (userNick) {
-                    $.ajax({
-                        type: "POST",
-                        url: "https://nodeknockoutogu.herokuapp.com/users",
-                        data: {"name": userNick},
-                        success: function (data) {
 
-                            debugger;
+                    $.post( "https://nodeknockoutogu.herokuapp.com/users",  {"name": userNick} , function( data ) {
 
-                            window.localStorage.setItem("nickname", userNick);
-                            $('#welcome').text('Welcome ' + userNick);
-                            $('#beginSection').show();
-                            dialog.close();
+                        userObj = data;
+                        localStorage.setItem('trendsuser', JSON.stringify(data));
+                        $('#welcome').text('Welcome ' + userNick);
+                        $('#beginSection').show();
+                        dialog.close();
 
-                        },
-                        dataType: 'application/json'
-                    });
+                    }, "json");
+
                 } else {
                     alert('Enter nickname');
                 }
