@@ -1,5 +1,5 @@
-//var globalUrl = "https://nodeknockoutogu.herokuapp.com/";
-var globalUrl = "http://localhost:8080/";
+var globalUrl = "https://nodeknockoutogu.herokuapp.com/";
+//var globalUrl = "http://localhost:8080/";
 
 $('#beginSection,#gameSection,#gameLoaderSection').hide();
 
@@ -22,8 +22,37 @@ function dosmth(id) {
 
 function listenMatch(msg) {
 
-    debugger;
+    console.log('geldik');
 
+}
+
+function showMatchScreen(robot){
+
+    $("#myPlayer").attr("src", 'img/' + userObj.avatar + 'left.gif');
+    if(robot) {
+        $("#opponent").attr("src", 'img/robot.gif');
+    }
+
+    $choices = $("#choices");
+    $choices.html(null);
+
+    $.each(currentMatch.words, function (index, value) {
+
+        var $buttons = $('<input/>').attr({
+                type: 'button',
+                id: 'btn' + index,
+                name: 'btn' + index,
+                value: value,
+                onclick: 'dosmth(' + 'btn' + index + ');'
+            })
+            .addClass('btn').addClass('btn-default').addClass('btn-sm').addClass('little-space');
+        var $div = $('<div></div>').append($buttons);
+
+        $choices.append($div);
+    });
+
+    $('#gameLoaderSection').hide();
+    $('#gameSection').show();
 }
 
 function renderLeaderboard() {
@@ -50,12 +79,15 @@ function authOk() {
 
 function call4Robot() {
 
-    $.post(globalUrl + "matches", {"userId": "5a08b73b734d1d68d42e2edf"}, function (data) {
+    if (currentMatch.users.length == 1) {
 
-        currentMatch = data;
+        $.post(globalUrl + "matches", {"userId": "5a08b73b734d1d68d42e2edf"}, function (data) {
 
-    }, "json");
+            currentMatch = data;
+            showMatchScreen(true);
 
+        }, "json");
+    }
 }
 
 function getChoices() {
@@ -92,10 +124,8 @@ $('#fightBtn').click(function () {
     $.post(globalUrl + "matches", {"userId": userObj._id}, function (data) {
 
         currentMatch = data;
-
         var socket = io(globalUrl + data._id);
         socket.on('matchResult', listenMatch);
-
 
     }, "json");
 
