@@ -19,6 +19,10 @@ var UserSchema = new Schema({
     created_date: {
         type: Date,
         default: Date.now
-    }
+    },
+	point:{
+		type:Number,
+		default:0
+	}
 });
 module.exports = mongoose.model('Users', UserSchema);

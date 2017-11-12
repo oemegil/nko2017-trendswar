@@ -18,3 +18,10 @@ exports.postUser = function (req, res) {
         res.json(result);
     });
 };
+exports.getLeaderboard = function (req, res) {
+    Users.find({}).sort('-point').limit(10).exec(function(err, result) { 
+         if (err)
+        res.send(err);
+    res.json(result); 
+});
+};
